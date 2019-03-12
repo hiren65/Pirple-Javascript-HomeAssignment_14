@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Callback And Promises</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link rel=stylesheet href= "lib/codemirror.css">
+    <script src="lib/codemirror.js"></script>
+    <script src="mode/xml/xml.js"></script>
+    <script src="mode/javascript/javascript.js"></script>
+    <script src="mode/css/css.js"></script>
+    <script src="mode/htmlmixed/htmlmixed.js"></script>
+    <link rel="stylesheet" href="style1.css">
+
+</head>
+<body>
+    <div id="wrapper">
+        <div class="box" id="b0">
+        <h1>Homework Assignment #14: Callbacks and Promises</h1>
+            <p id="obj">
+                Objectives
+                Create two different scripts. One will contain the callback-centered code,
+                and the other the promises-centered code. The two scripts should contain the same functionality,
+                and solve the same problems.
+            </p>
+        </div>
+        <div class="box" id="b1">
+             <h2>Call Back Example</h2>
+             <textarea id=code name=code>
+                 <div id="dis1"></div>
+                 <div id="ran"></div>
+                 <script>
+                            var ran = Math.random()*1000;
+                            ran = Math.floor(ran);
+                            //alert(ran);
+                            var arr = [];
+                            function my(hh){
+                                let tt = document.getElementById("dis1");
+                                tt.innerHTML = hh;
+                            }
+                            let date0,date00;
+                            function calSquare(num,callback,callback1) {
+                                date0 = new Date();
+                                setTimeout(function () {
+                                    console.log(`Sqare of ${num} is ` + num*num);
+                                    let tt1 = `Sqare of ${num} is ` + num*num + ` <br>`;
+                                    arr.push(tt1);
+                                    date00 = new Date();
+                                    let diff = date00 - date0;
+                                    console.log("time elapsed "+diff + " milliseconds");
+                                    let tt2 = "time elapsed "+diff + " milliseconds \n";
+                                    arr.push(tt2);
+                                    my(arr);
+                                },800);
+
+                                callback(num);
+                                callback1(num);
+
+                            }
+
+                            function squareRoot(num) {
+                                console.log(`Square root of ${num} is `  + Math.sqrt(num));
+                                let tt3 = `Square root of ${num} is `  + Math.sqrt(num) + `<br>`;
+                                arr.push(tt3);
+                            }
+                            function findNearestPrime(x){
+                                let yy = x;
+                                for (let i=x-1;i>0;i--){
+                                   if (isPrime(i) === true){
+                                       console.log("prime Number near " +  i);
+                                       let tt4 = "prime Number near " +  i + `<br>`;
+                                       arr.push(tt4);
+                                       return i;
+                                   }
+
+                                }
+                            }
+
+                            function isPrime(num){
+                                if (num < 2) return false;
+                                 /**
+                                 * An integer is prime if it is not divisible by any prime less than or equal to its square root
+                                 **/
+                                 let q = Math.floor(Math.sqrt(num));
+                                for (let i=2;i<q;i++){
+                                    if ( num%i===0 ){
+                                        //console.log("find " + num + "and " + i );
+                                        return false;
+                                    }
+
+                                }
+                                return true;
+                            }
+                            //let xyz = isPrime(97);
+                            //console.log(xyz);
+
+                            console.log("/////////////// Callbacks ///////////////////////");
+                            calSquare(ran,squareRoot,findNearestPrime);
+                 </script>
+
+             </textarea>
+            <div>
+                <iframe id=preview></iframe>
+            </div>
+        </div>
+        <div class="box" id="b2">
+            <h2>Promise Example</h2>
+            <textarea id="code1" name="code1">
+                <div id="dis2"></div>
+                <script>
+                    var ran1 = Math.random()*1000;
+                    ran1 = Math.floor(ran1);
+                    var arr1 = [];
+                    function my1(hh){
+                        let tt = document.getElementById("dis2");
+                        tt.innerHTML = hh;
+                    }
+                    function findNearestPrime1(x){
+                        let yy = x;
+                        for (let i=x-1;i>0;i--){
+                            if (isPrime1(i) === true){
+                                console.log("prime Number near " +  i);
+                                //let tt4 = "prime Number near " +  i + `<br>`;
+                                //arr.push(tt4);
+                                return i;
+                            }
+
+                        }
+                    }
+                    function isPrime1(num){
+                        if (num < 2) return false;
+                        /**
+                         * An integer is prime if it is not divisible by any prime less than or equal to its square root
+                         **/
+                        let q = Math.floor(Math.sqrt(num));
+                        for (let i=2;i<q;i++){
+                            if ( num%i===0 ){
+                                //console.log("find " + num + "and " + i );
+                                return false;
+                            }
+
+                        }
+                        return true;
+                    }
+                    let date1,date2;
+                    new Promise(function (resolve,reject) {
+
+                        date1 = new Date();
+                        setTimeout(function (num=ran1) {
+                            resolve (num);
+                            console.log(`In Promise Square of ${num} is `+ num*num);
+                            let hh1 = `In Promise Square of ${num} is `+ num*num + `<br>`;
+                            arr1.push(hh1);
+                            my1(arr1);
+                        },800);
+                    })
+                        .then(function (num) {
+                            let tt = findNearestPrime1(num);
+                            console.log(`In Promise Nearest Prime number of ${num} is ` + tt);
+                            let hh2 = `In Promise Nearest Prime number of ${num} is ` + tt + `<br>`;
+                            arr1.push(hh2);
+                            my1(arr1);
+                            return (num);
+                        })
+                        .then(function (num) {
+                            console.log(`In Promise Square root of ${num} is ` + Math.sqrt(num));
+                            let hh5 = `In Promise Square root of ${num} is ` + Math.sqrt(num) + `<br>`;
+                            arr1.push(hh5);
+                            my1(arr1);
+
+
+                            date2 = new Date();
+                            let diff = date2 - date1;
+                            console.log("time elapsed in promise "+ diff);
+
+                            let hh3 = "time elapsed in promise "+ diff + " \n";
+                            arr1.push(hh3);
+                            my1(arr1);
+                            return  Math.sqrt(num);
+                        })
+                        .catch(function (err) {
+                            console.log("error is " + err);
+                        });
+                </script>
+            </textarea>
+            <div>
+                <iframe id=preview1></iframe>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <script src="editor1.js"></script>
+
+
+
+
+    </footer>
+</body>
+</html>
