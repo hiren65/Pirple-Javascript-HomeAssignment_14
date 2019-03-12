@@ -12,12 +12,20 @@
 // 2. Wait "num" milliseconds
 // 3. Determine the prime-number that is closest to num
 //    without being greater than or equal to num, and then log it to the console
+// 4. Determine the prime-number that is closest to num without being greater than or equal to num,
+//    and then log it to the console
+// 5. Count the total elapsed time from when the original function was called until the last step was completed,
+//    and log that to the console as well.
 
 //callback
+let date0,date00;
 function calSquare(num,callback,callback1) {
-
+    date0 = new Date();
     setTimeout(function () {
         console.log(`Sqare of ${num} is ` + num*num);
+        date00 = new Date();
+        let diff = date00 - date0;
+        console.log("time elapsed "+diff);
     },800);
 
     callback(num);
@@ -55,17 +63,21 @@ function isPrime(num){
 }
 //let xyz = isPrime(97);
 //console.log(xyz);
+
 console.log("/////////////// Callbacks ///////////////////////");
 calSquare(121,squareRoot,findNearestPrime);
 
 //Promises
-console.log("/////////////// Promises ///////////////////////");
 
+
+
+let date1,date2;
 new Promise(function (resolve,reject) {
 
+    date1 = new Date();
    setTimeout(function (num=100) {
        resolve (num);
-       console.log(`In Promise Square of ${num} is `+ num*num);
+       console.log(`////////Promises///////  \n In Promise Square of ${num} is `+ num*num);
    },800);
 })
 .then(function (num) {
@@ -75,6 +87,9 @@ new Promise(function (resolve,reject) {
 })
 .then(function (num) {
     console.log(`In Promise Square root of ${num} is ` + Math.sqrt(num));
+    date2 = new Date();
+    let diff = date2 - date1;
+    console.log("time elapsed in promise "+ diff);
        return  Math.sqrt(num);
 })
 .catch(function (err) {
