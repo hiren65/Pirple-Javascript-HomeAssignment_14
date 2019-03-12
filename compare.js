@@ -12,9 +12,7 @@
 // 2. Wait "num" milliseconds
 // 3. Determine the prime-number that is closest to num
 //    without being greater than or equal to num, and then log it to the console
-// 4. Determine the prime-number that is closest to num without being greater than or equal to num,
-//    and then log it to the console
-// 5. Count the total elapsed time from when the original function was called until the last step was completed,
+// 4. Count the total elapsed time from when the original function was called until the last step was completed,
 //    and log that to the console as well.
 
 //callback
