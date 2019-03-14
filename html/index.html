@@ -12,7 +12,6 @@
     <script src="mode/css/css.js"></script>
     <script src="mode/htmlmixed/htmlmixed.js"></script>
     <link rel="stylesheet" href="style1.css">
-
 </head>
 <body>
     <div id="wrapper">
@@ -28,6 +27,8 @@
                 <ol>
                     <li>Calculate the square of num and log it to the console</li>
                     <li>Wait "num" milliseconds</li>
+                    <li>Determine the prime-number that is closest to num
+                        without being greater than or equal to num, and then log it to the console</li>
                     <li>Determine the prime-number that is closest to numwithout being greater
                         than or equal to num, and then log it to the console</li>
                     <li>Count the total elapsed time from when the original function was called until the last step was completed,
@@ -38,19 +39,50 @@
         </div>
         <div class="box" id="b1">
              <h2>Call Back Example</h2>
+
              <textarea id=code name=code>
+                 <style>
+                     #btn,#input{
+                         width: 150px;margin-top: 10px;margin-left: 10px;
+                         height: 30px;
+                     }
+                 </style>
                  <div id="dis1"></div>
                  <div id="ran"></div>
-                 <script>
-                            var ran = Math.random()*1000;
+                 <button id="btn">Apply</button><input id="input" value="" type="number">
+                 <span>Any Number Beween 1 to 1000</span>
+                 <script >
+                     var date0,date00;
+                     var ran;
+                     var btn = document.getElementById("btn");
+                     var ch = 0;
+                     var arr = [];
+                     btn.addEventListener("click",chi);
+                     function chi() {
+                         arr = [];
+                         var number = document.getElementById("input").value;
+                         //alert(number);
+                         let tt = document.getElementById("dis1");
+
+                         tt.innerHTML = "";
+                         ran = number;ch = 0;
+                         calSquare(ran,squareRoot,findNearestPrime);
+                         /*if (ch ===1){
+                             my(arr);
+                         }*/
+                     }
+                            ran = Math.random()*1000;
                             ran = Math.floor(ran);
                             //alert(ran);
-                            var arr = [];
+
                             function my(hh){
-                                let tt = document.getElementById("dis1");
-                                tt.innerHTML = hh;
+
+                                    let tt = document.getElementById("dis1");
+                                    tt.innerHTML = hh;
+
+
                             }
-                            let date0,date00;
+
                             function calSquare(num,callback,callback1) {
                                 date0 = new Date();
                                 setTimeout(function () {
@@ -62,14 +94,18 @@
                                     console.log("time elapsed "+diff + " milliseconds");
                                     let tt2 = "time elapsed "+diff + " milliseconds \n";
                                     arr.push(tt2);
-                                    my(arr);
-                                },800);
+                                    if (ch === 0) {
+                                        my(arr);ch = 1;
+                                    }
+                                },num);
 
                                 callback(num);
                                 callback1(num);
 
                             }
-
+                     /*function chi(){
+                         calSquare(ran,squareRoot,findNearestPrime);
+                     }*/
                             function squareRoot(num) {
                                 console.log(`Square root of ${num} is `  + Math.sqrt(num));
                                 let tt3 = `Square root of ${num} is `  + Math.sqrt(num) + `<br>`;
@@ -154,45 +190,54 @@
                         }
                         return true;
                     }
-                    let date1,date2;
+                    var date1,date2;
+                createPromise(ran1);
+                function createPromise(num) {
+
+
                     new Promise(function (resolve,reject) {
 
                         date1 = new Date();
-                        setTimeout(function (num=ran1) {
-                            resolve (num);
-                            console.log(`In Promise Square of ${num} is `+ num*num);
-                            let hh1 = `In Promise Square of ${num} is `+ num*num + `<br>`;
-                            arr1.push(hh1);
-                            my1(arr1);
-                        },800);
+                        resolve (num);
+                        console.log(`In Promise Square of ${num} is `+ num*num);
+                        let hh1 = `In Promise Square of ${num} is `+ num*num + `<br>`;
+                        arr1.push(hh1);
+                        my1(arr1);
+
                     })
                         .then(function (num) {
-                            let tt = findNearestPrime1(num);
-                            console.log(`In Promise Nearest Prime number of ${num} is ` + tt);
-                            let hh2 = `In Promise Nearest Prime number of ${num} is ` + tt + `<br>`;
-                            arr1.push(hh2);
-                            my1(arr1);
-                            return (num);
-                        })
-                        .then(function (num) {
-                            console.log(`In Promise Square root of ${num} is ` + Math.sqrt(num));
-                            let hh5 = `In Promise Square root of ${num} is ` + Math.sqrt(num) + `<br>`;
-                            arr1.push(hh5);
-                            my1(arr1);
+                            setTimeout(function (num=ran1) {
+                                let tt = findNearestPrime1(num);
+                                console.log(`In Promise Nearest Prime number of ${num} is ` + tt);
+                                let hh2 = `In Promise Nearest Prime number of ${num} is ` + tt + `<br>`;
+                                arr1.push(hh2);
+                                my1(arr1);
+
+                                console.log(`In Promise Square root of ${num} is ` + Math.sqrt(num));
+                                let hh5 = `In Promise Square root of ${num} is ` + Math.sqrt(num) + `<br>`;
+                                arr1.push(hh5);
+                                my1(arr1);
 
 
-                            date2 = new Date();
-                            let diff = date2 - date1;
-                            console.log("time elapsed in promise "+ diff);
+                                date2 = new Date();
+                                let diff = date2 - date1;
+                                console.log("time elapsed in promise "+ diff);
 
-                            let hh3 = "time elapsed in promise "+ diff + " \n";
-                            arr1.push(hh3);
-                            my1(arr1);
-                            return  Math.sqrt(num);
+                                let hh3 = "time elapsed in promise "+ diff + "milliseconds \n";
+                                arr1.push(hh3);
+                                my1(arr1);
+                                return  Math.sqrt(num);
+
+                            },num);
+
+
+
+
                         })
                         .catch(function (err) {
                             console.log("error is " + err);
                         });
+                    }
                 </script>
             </textarea>
             <div>

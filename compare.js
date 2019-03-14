@@ -10,24 +10,31 @@
 */
 // 1. Calculate the square of num and log it to the console
 // 2. Wait "num" milliseconds
-// 3. Determine the prime-number that is closest to num
+// 3. Calculate the square root of num and log it to the console
+// 4. Determine the prime-number that is closest to num
 //    without being greater than or equal to num, and then log it to the console
-// 4. Count the total elapsed time from when the original function was called until the last step was completed,
+// 5. Count the total elapsed time from when the original function was called until the last step was completed,
 //    and log that to the console as well.
 
 //callback
 let date0,date00;
+
+let date1,date2;
+let check = 0;
 function calSquare(num,callback,callback1) {
     date0 = new Date();
+    console.log(`Sqare of ${num} is ` + num*num);
     setTimeout(function () {
-        console.log(`Sqare of ${num} is ` + num*num);
+        callback(num);
+        callback1(num);
         date00 = new Date();
         let diff = date00 - date0;
         console.log("time elapsed "+diff);
-    },800);
+        check = 1;
+        createPromise(num);
+    },num);
 
-    callback(num);
-    callback1(num);
+
 
 }
 
@@ -63,33 +70,43 @@ function isPrime(num){
 //console.log(xyz);
 
 console.log("/////////////// Callbacks ///////////////////////");
-calSquare(121,squareRoot,findNearestPrime);
+let ran = Math.random()*1000;
+ran = Math.floor(ran);
+calSquare(ran,squareRoot,findNearestPrime);
 
 //Promises
 
 
 
-let date1,date2;
-new Promise(function (resolve,reject) {
+
+
+function createPromise(num) {
 
     date1 = new Date();
-   setTimeout(function (num=100) {
-       resolve (num);
-       console.log(`////////Promises///////  \n In Promise Square of ${num} is `+ num*num);
-   },800);
+new Promise(function (resolve,reject) {
+
+
+    console.log(`////////Promises///////  \n In Promise Square of ${num} is `+ num*num);
+    resolve (num);
+
 })
 .then(function (num) {
-    let tt = findNearestPrime(num);
-    console.log(`In Promise Nearest Prime number of ${num} is ` + tt);
+    //console.log("ffff "+num);
+    setTimeout(function () {
+        let tt = findNearestPrime(num);
+        console.log(`In Promise Nearest Prime number of ${num} is ` + tt);
+        console.log(`In Promise Square root of ${num} is ` + Math.sqrt(num));
+        date2 = new Date();
+        let diff = date2 - date1;
+        console.log("In Promise time elapsed in promise "+ diff);
+        return  Math.sqrt(num);
+    },num);
+
     return (num);
 })
-.then(function (num) {
-    console.log(`In Promise Square root of ${num} is ` + Math.sqrt(num));
-    date2 = new Date();
-    let diff = date2 - date1;
-    console.log("time elapsed in promise "+ diff);
-       return  Math.sqrt(num);
-})
+
 .catch(function (err) {
     console.log("error is " + err);
 });
+}
+
