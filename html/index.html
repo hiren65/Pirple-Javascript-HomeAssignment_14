@@ -154,11 +154,34 @@
         <div class="box" id="b2">
             <h2>Promise Example</h2>
             <textarea id="code1" name="code1">
+                <style>
+                     #btn,#input{
+                         width: 150px;margin-top: 10px;margin-left: 10px;
+                         height: 30px;
+                     }
+                 </style>
                 <div id="dis2"></div>
+                <button id="btn">Apply</button><input id="input" value="" type="number">
+                 <span>Any Number Beween 1 to 1000</span>
+
                 <script>
                     var ran1 = Math.random()*1000;
                     ran1 = Math.floor(ran1);
                     var arr1 = [];
+                    var ch = 0;
+                    btn.addEventListener("click",chi);
+                    function chi() {
+                        arr1 = [];
+                        var number = document.getElementById("input").value;
+                        //alert(number);
+                        let tt = document.getElementById("dis2");
+
+                        tt.innerHTML = "";
+                        ran1 = number;ch = 0;
+                        createPromise(ran1);
+                    }
+
+
                     function my1(hh){
                         let tt = document.getElementById("dis2");
                         tt.innerHTML = hh;
@@ -225,7 +248,10 @@
 
                                 let hh3 = "time elapsed in promise "+ diff + "milliseconds \n";
                                 arr1.push(hh3);
-                                my1(arr1);
+
+                                if (ch === 0) {
+                                    my1(arr1);ch = 1;
+                                }
                                 return  Math.sqrt(num);
 
                             },num);
