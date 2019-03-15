@@ -42,15 +42,21 @@
 
              <textarea id=code name=code>
                  <style>
-                     #btn,#input{
+                     #btn,#input,#btn_ran,#input_ran{
                          width: 150px;margin-top: 10px;margin-left: 10px;
                          height: 30px;
+                     }
+                     span{
+                         margin-left: 5px;
                      }
                  </style>
                  <div id="dis1"></div>
                  <div id="ran"></div>
                  <button id="btn">Apply</button><input id="input" value="" type="number">
                  <span>Any Number Beween 1 to 1000</span>
+                 <div>
+                     <button id="btn_ran">Random Num</button><label id="input_ran"></label>
+                 </div>
                  <script >
                      var date0,date00;
                      var ran;
@@ -67,9 +73,14 @@
                          tt.innerHTML = "";
                          ran = number;ch = 0;
                          calSquare(ran,squareRoot,findNearestPrime);
-                         /*if (ch ===1){
-                             my(arr);
-                         }*/
+                     }
+                     btn_ran.addEventListener("click",chi_ran);
+                     function chi_ran(){
+
+                         arr = [];
+                         ran = Math.random()*1000;
+                         ran = Math.floor(ran);ch = 0;
+                         calSquare(ran,squareRoot,findNearestPrime);
                      }
                             ran = Math.random()*1000;
                             ran = Math.floor(ran);
@@ -94,9 +105,9 @@
                                     console.log("time elapsed "+diff + " milliseconds");
                                     let tt2 = "time elapsed "+diff + " milliseconds \n";
                                     arr.push(tt2);
-                                    if (ch === 0) {
+                                    //if (ch === 0) {
                                         my(arr);ch = 1;
-                                    }
+                                    //}
                                 },num);
 
                                 callback(num);
@@ -217,10 +228,10 @@
                 createPromise(ran1);
                 function createPromise(num) {
 
-
+                    date1 = new Date();
                     new Promise(function (resolve,reject) {
 
-                        date1 = new Date();
+
                         resolve (num);
                         console.log(`In Promise Square of ${num} is `+ num*num);
                         let hh1 = `In Promise Square of ${num} is `+ num*num + `<br>`;
@@ -230,15 +241,17 @@
                     })
                         .then(function (num) {
                             setTimeout(function (num=ran1) {
-                                let tt = findNearestPrime1(num);
-                                console.log(`In Promise Nearest Prime number of ${num} is ` + tt);
-                                let hh2 = `In Promise Nearest Prime number of ${num} is ` + tt + `<br>`;
-                                arr1.push(hh2);
-                                my1(arr1);
+
 
                                 console.log(`In Promise Square root of ${num} is ` + Math.sqrt(num));
                                 let hh5 = `In Promise Square root of ${num} is ` + Math.sqrt(num) + `<br>`;
                                 arr1.push(hh5);
+                                my1(arr1);
+
+                                let tt = findNearestPrime1(num);
+                                console.log(`In Promise Nearest Prime number of ${num} is ` + tt);
+                                let hh2 = `In Promise Nearest Prime number of ${num} is ` + tt + `<br>`;
+                                arr1.push(hh2);
                                 my1(arr1);
 
 
