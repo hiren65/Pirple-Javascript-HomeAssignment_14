@@ -63,34 +63,50 @@
                      var btn = document.getElementById("btn");
                      var ch = 0;
                      var arr = [];
+                     var btn_ran = document.getElementById("btn_ran");
+                     //for given number event
                      btn.addEventListener("click",chi);
                      function chi() {
                          arr = [];
                          var number = document.getElementById("input").value;
+                         if (number === ""){
+                             alert("no number");return;
+                         }
+                         if (number === "1" || number === "1000"){
+                             alert("Number should be > 1 and < 1000");return;
+                         }
                          //alert(number);
                          let tt = document.getElementById("dis1");
 
                          tt.innerHTML = "";
                          ran = number;ch = 0;
+                         document.getElementById("input_ran").innerText = "";
                          calSquare(ran,squareRoot,findNearestPrime);
                      }
+                     //for random number generation event
                      btn_ran.addEventListener("click",chi_ran);
                      function chi_ran(){
 
                          arr = [];
                          ran = Math.random()*1000;
                          ran = Math.floor(ran);ch = 0;
+                         document.getElementById("input_ran").innerText = ran;
                          calSquare(ran,squareRoot,findNearestPrime);
                      }
                             ran = Math.random()*1000;
                             ran = Math.floor(ran);
+
                             //alert(ran);
-
+                     // write down all console detail
                             function my(hh){
-
+                                    let txt = "";
                                     let tt = document.getElementById("dis1");
-                                    tt.innerHTML = hh;
+                                    for (var i=0;i<hh.length;i++){
 
+                                       txt  = txt.concat(hh[i]) ;
+                                    }
+
+                                     tt.innerHTML = txt;
 
                             }
 
@@ -166,36 +182,70 @@
             <h2>Promise Example</h2>
             <textarea id="code1" name="code1">
                 <style>
-                     #btn,#input{
+                     #btn,#input,#btn_ran,#input_ran{
                          width: 150px;margin-top: 10px;margin-left: 10px;
                          height: 30px;
+                     }
+                     span{
+                         margin-left: 5px;
                      }
                  </style>
                 <div id="dis2"></div>
                 <button id="btn">Apply</button><input id="input" value="" type="number">
                  <span>Any Number Beween 1 to 1000</span>
-
+                <div>
+                     <button id="btn_ran">Random Num</button><label id="input_ran"></label>
+                </div>
                 <script>
                     var ran1 = Math.random()*1000;
                     ran1 = Math.floor(ran1);
                     var arr1 = [];
                     var ch = 0;
+                    var btn = document.getElementById("btn");
+                    var btn_ran = document.getElementById("btn_ran");
+                    //Given number event
                     btn.addEventListener("click",chi);
                     function chi() {
                         arr1 = [];
                         var number = document.getElementById("input").value;
+                        if (number === ""){
+                            alert("no number found!");return;
+                        }
+                        if (number === "1" || number === "1000"){
+                            alert("Number should be > 1 and < 1000");return;
+                        }
                         //alert(number);
                         let tt = document.getElementById("dis2");
 
                         tt.innerHTML = "";
                         ran1 = number;ch = 0;
+                        document.getElementById("input_ran").innerText = "";
+                        createPromise(ran1);
+                    }
+                    //Random generated number event
+                    btn_ran.addEventListener("click",chi_ran);
+                    function chi_ran(){
+
+                        arr1 = [];
+                        ran1 = Math.random()*1000;
+                        ran1 = Math.floor(ran1);ch = 0;
+                        document.getElementById("input_ran").innerText = ran1;
                         createPromise(ran1);
                     }
 
-
+                    // write down all console detail
                     function my1(hh){
+                       // let tt = document.getElementById("dis2");
+                       // tt.innerHTML = hh;
+
+                        let txt = "";
                         let tt = document.getElementById("dis2");
-                        tt.innerHTML = hh;
+                        for (var i=0;i<hh.length;i++){
+
+                            txt  = txt.concat(hh[i]) ;
+                        }
+
+                        tt.innerHTML = txt;
                     }
                     function findNearestPrime1(x){
                         let yy = x;
@@ -262,9 +312,9 @@
                                 let hh3 = "time elapsed in promise "+ diff + "milliseconds \n";
                                 arr1.push(hh3);
 
-                                if (ch === 0) {
+                                //if (ch === 0) {
                                     my1(arr1);ch = 1;
-                                }
+                                //}
                                 return  Math.sqrt(num);
 
                             },num);
